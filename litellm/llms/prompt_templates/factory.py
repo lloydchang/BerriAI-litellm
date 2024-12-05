@@ -45,7 +45,19 @@ from .image_handling import async_convert_url_to_base64, convert_url_to_base64
 
 
 def default_pt(messages):
-    return " ".join(message["content"] for message in messages)
+    def process_content(content):
+        if isinstance(content, str):
+            return content
+        elif isinstance(content, list):
+            # Handle content that is a list of text
+            text_content = ""
+            for item in content:
+                if isinstance(item, dict) and item.get("type") == "text":
+                    text_content += item.get("text", "")
+            return text_content
+        return ""
+
+    return " ".join(process_content(message["content"]) for message in messages)
 
 
 def prompt_injection_detection_default_pt():
