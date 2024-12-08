@@ -4,6 +4,7 @@ on:
   # schedule:
   #   - cron: "0 0 * * 0"  # Run every Sundays at midnight
     #- cron: "0 0 * * *" # Run daily at midnight
+  workflow_dispatch:
 
 jobs:
   auto_update_price_and_context_window:
